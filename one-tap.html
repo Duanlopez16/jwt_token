@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google One Tap Example</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #tokenDisplay {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      width: 90%;
+      max-width: 600px;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1>Google One Tap Login</h1>
+  <p>Click the popup or wait for the prompt to appear.</p>
+  
+  <div id="tokenDisplay">
+    <strong>ID Token:</strong>
+    <p id="idToken">No token generated yet.</p>
+  </div>
+
+  <script>
+    // Your Google OAuth Client ID
+    const clientId = '162707826213-so31sae6bmap0i14ihjtir5qh1c52ir3.apps.googleusercontent.com';
+
+    // Initialize Google One Tap
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleCredentialResponse,
+        cancel_on_tap_outside : false
+      });
+
+      // Render One Tap Button (Optional: Shows the button)
+      google.accounts.id.prompt(); // Displays the One Tap UI
+    };
+
+    // Callback to handle the response
+    function handleCredentialResponse(response) {
+      const idToken = response.credential; // The ID Token returned by Google
+
+      // Display the ID Token in the frontend
+      document.getElementById('idToken').innerText = idToken;
+
+      // Send the ID Token to the backend for verification
+      console.log('Generated ID Token:', idToken);
+    }
+  </script>
+</body>
+</html>
