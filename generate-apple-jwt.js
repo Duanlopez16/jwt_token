@@ -14,7 +14,7 @@ const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
 const payload = {
     iss: teamId,
     iat: Math.floor(Date.now() / 1000), // Tiempo de emisión (en segundos desde la época Unix)
-    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 365), // Expira en 1 año
+    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30 * 6), // Expira en 1 año
     aud: 'https://appleid.apple.com', // Audiencia fija de Apple
     sub: clientId,
 };
